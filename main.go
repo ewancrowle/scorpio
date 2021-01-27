@@ -3,27 +3,21 @@ package main
 import (
 	"github.com/joho/godotenv"
 	"log"
-	"os"
+	"scorpio/config"
 	"scorpio/core"
 	"scorpio/core/types"
 	"scorpio/server"
 	"time"
 )
 
-var (
-	Server server.Server
-	Config core.Config
-)
+var Server server.Server
 
 func main() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	Config = core.Config{
-		Address: os.Getenv("ADDR"),
-	}
+	config.Configure()
 
 	go func() {
 		head := &types.Header{
@@ -36,5 +30,5 @@ func main() {
 		core.Bc.TxPool = []*types.Transaction{}
 	}()
 
-	log.Fatal(Server.Run(Config.Address))
+	log.Fatal(Server.Run(config.Address))
 }

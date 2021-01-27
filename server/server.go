@@ -31,6 +31,7 @@ func (s Server) Run(address string) error {
 
 func NewRouter() *mux.Router {
 	router := mux.NewRouter()
-	router.HandleFunc("/", routes.GetBlockchain).Methods("GET")
+	routes.RouteGetBlockchain(router)
+
 	return router
 }

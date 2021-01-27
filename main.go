@@ -13,8 +13,7 @@ import (
 var Server server.Server
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
+	if err := godotenv.Load(); err != nil {
 		log.Fatal(err)
 	}
 	config.Configure()
